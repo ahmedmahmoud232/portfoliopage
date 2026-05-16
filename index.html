@@ -243,9 +243,126 @@
       transform: translateY(-1px)
     }
 
+    /* Mobile Menu Styles */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #0a0a0f;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(245, 244, 240, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(-20px);
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .mobile-menu a.m-link {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0a0a0f;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a.m-link:hover {
+      color: #5b5bd6;
+    }
+
+    .mobile-menu-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 100px;
+      padding: 10px 20px;
+      z-index: 95;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .b-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .b-nav-item.active,
+    .b-nav-item:hover {
+      color: #0a0a0f;
+    }
+
+    .b-nav-icon {
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .b-nav-item:active .b-nav-icon {
+      transform: scale(0.75);
+    }
+
+    .b-nav-item span {
+      font-size: 10px;
+      font-weight: 600;
+    }
+
     @media(max-width:960px) {
-      .nav-links {
-        display: none
+      .nav-links, .nav-cta {
+        display: none !important;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .bottom-nav {
+        display: block;
       }
 
       .nav-pill {
@@ -255,6 +372,10 @@
 
       nav {
         padding: 12px 16px
+      }
+
+      footer {
+        padding-bottom: 120px !important;
       }
     }
 
@@ -280,23 +401,28 @@
     }
 
     @media(max-width:420px) {
-      .btn-ghost {
-        display: none !important
-      }
-
       .nav-pill {
         max-width: calc(100% - 20px)
       }
 
+      .hero-tag {
+        margin-bottom: 20px;
+      }
+
       .hero-h1 {
         font-size: 36px;
-        min-height: auto;
-        margin-bottom: 16px
+        min-height: calc(36px * 0.95 * 3);
+        margin-bottom: 12px
       }
 
       .hero-sub {
         font-size: 14px;
-        margin-bottom: 24px
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      .hero-actions {
+        margin-bottom: 32px;
       }
     }
 
@@ -616,14 +742,24 @@
         grid-template-columns: 1fr;
         padding: 100px 24px 60px;
         min-height: auto;
+        gap: 24px;
       }
 
       .hero-visual {
         display: none
       }
 
+      .hero-tag {
+        margin-bottom: 24px;
+      }
+
       .hero-h1 {
-        min-height: calc(clamp(40px, 8vw, 72px)*.95*3)
+        min-height: calc(clamp(40px, 8vw, 72px)*.95*3);
+        margin-bottom: 20px;
+      }
+
+      .hero-sub {
+        margin-bottom: 28px;
       }
     }
 
@@ -639,6 +775,12 @@
     .marquee-track {
       display: flex;
       animation: run 22s linear infinite
+    }
+    @media(max-width:860px) {
+      .marquee-track { animation: run 14s linear infinite }
+    }
+    @media(max-width:420px) {
+      .marquee-track { animation: run 10s linear infinite }
     }
 
     .marquee-sec:hover .marquee-track {
@@ -923,7 +1065,8 @@
 
     .chat-options {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 12px;
       margin-top: 16px;
     }
@@ -935,7 +1078,8 @@
       border-radius: 100px;
       font-size: 14px;
       font-weight: 700;
-      color: #5b5bd6;
+      color: #0a0a0f;
+      text-align: left;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
@@ -1325,6 +1469,27 @@
       background: #ebebeb
     }
 
+    /* ─── GLOBAL UTILS & ANIMATIONS ─── */
+    .view-more-wrapper {
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    .view-more-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    @keyframes simplePulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(91, 91, 214, 0.4); }
+      50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(91, 91, 214, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(91, 91, 214, 0); }
+    }
+
+    .btn-pulse {
+      animation: simplePulse 2s infinite;
+    }
+
     /* ─── SERVICES ─── */
     #services {
       padding: 100px 0;
@@ -1346,98 +1511,28 @@
     }
 
     .srv-card-wrap {
-      perspective: 1000px;
       height: 320px;
-      cursor: pointer;
     }
 
     .srv-card-inner {
       width: 100%;
       height: 100%;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-style: preserve-3d;
-      position: relative;
-    }
-
-    .srv-card-wrap:hover .srv-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .srv-card-front,
-    .srv-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 24px;
-      overflow: hidden;
-    }
-
-    .srv-card-front {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
       background: #fff;
       border: 1px solid #e5e7eb;
+      border-radius: 24px;
       padding: 32px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-      transition: box-shadow 0.3s;
-    }
-
-    .srv-card-wrap:hover .srv-card-front {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    }
-
-    .srv-card-back {
-      background: #f4f6fb;
-      transform: rotateY(180deg);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 24px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .srv-card-back img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-
-    .srv-card-back-shadow {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60%;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-      z-index: 1;
-    }
-
-    .srv-card-back button {
       position: relative;
-      z-index: 2;
-      width: 100%;
-      background: #5b5bd6;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
     }
 
-    .srv-card-back button:hover {
-      background: #7c7de8;
-      transform: translateY(-2px);
+    .srv-card-wrap:hover .srv-card-inner {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.1);
     }
 
     .srv-icon-wrap {
@@ -1464,6 +1559,52 @@
       font-size: 14px;
       line-height: 1.75;
       color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .srv-build-btn {
+      width: 100%;
+      margin-top: auto;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      justify-content: center;
+    }
+
+    .srv-card-wrap:hover .srv-build-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+    }
+
+    .popup-content {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transform: translateY(20px);
+      animation: slideUp 0.3s forwards;
+    }
+
+    @keyframes slideUp {
+      to { transform: translateY(0); }
     }
 
     /* ─── CONTACT ─── */
@@ -1759,10 +1900,81 @@
         grid-template-columns: 1fr
       }
 
+      .dark-form {
+        padding: 16px;
+        gap: 16px;
+        border-radius: 20px;
+        box-shadow: -6px 6px 0 0 white, -6px 6px 0 1px #e5e7eb, -6px 12px 20px rgba(0, 0, 0, 0.04);
+      }
+
       .proj-card,
       .proj-card.reverse {
         grid-template-columns: 1fr;
-        direction: ltr
+        direction: ltr;
+        padding: 12px;
+        gap: 12px;
+        border-radius: 20px;
+        box-shadow: -6px 6px 0 0 white, -6px 6px 0 1px #e5e7eb, -6px 12px 20px rgba(0, 0, 0, 0.04);
+      }
+
+      .proj-card:hover {
+        transform: translateY(-2px);
+        box-shadow: -8px 8px 0 0 white, -8px 8px 0 1px #e5e7eb, -8px 16px 24px rgba(0, 0, 0, 0.06);
+      }
+
+      .proj-visual {
+        min-height: 180px;
+        padding: 0;
+        border-radius: 12px;
+      }
+
+      .proj-visual img {
+        object-fit: contain !important;
+        border-radius: 12px !important;
+      }
+
+      .proj-info {
+        padding: 12px 4px;
+      }
+
+      .proj-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .proj-desc {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .proj-tags {
+        margin-bottom: 16px;
+      }
+
+      .tag {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+
+      .pbtn {
+        padding: 10px 16px;
+        font-size: 12px;
+      }
+
+      .chat-header {
+        padding: 16px;
+      }
+
+      .chat-body {
+        padding: 24px 16px;
+        min-height: auto;
+      }
+
+      .msg-bubble {
+        max-width: 95%;
+        padding: 12px 16px;
+        font-size: 14px;
       }
 
       .proj-card.reverse>* {
@@ -1795,6 +2007,23 @@
 
     @media(max-width:768px) {
       /* Let mobile use its natural touch behavior */
+    }
+    @media(max-width:860px) {
+      .hero-actions, 
+      .proj-btns, 
+      .mobile-menu-cta, 
+      .footer-cta {
+        flex-direction: column !important;
+        width: 100%;
+        gap: 12px;
+      }
+      .hero-actions > *, 
+      .proj-btns > *, 
+      .mobile-menu-cta > *, 
+      .footer-cta > * {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -1839,42 +2068,71 @@
       close: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>,
       behance: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.546-1.436-2.35-2.461-2.35-.911 0-2.342.668-2.504 2.35zm-8.534-11v18h4.597c2.19 0 3.791-.259 4.887-1.427 1.09-1.162 1.32-2.825.438-4.184.898-1.077 1.242-2.735.088-3.978-1.127-1.22-2.613-1.411-4.757-1.411h-5.253zm3.5 11h1.492c1.078 0 2.213.253 2.213 1.5 0 1.258-1.196 1.5-2.213 1.5h-1.492v-3zm0-7h1.487c.725 0 1.947.23 1.947 1.341 0 1.242-1.354 1.298-2.115 1.298h-1.319v-2.639z" /></svg>,
       figma: <svg width="22" height="22" viewBox="0 0 38 57" fill="none"><path d="M19 28.5C19 33.7467 14.7467 38 9.5 38C4.25329 38 0 33.7467 0 28.5C0 23.2533 4.25329 19 9.5 19H19V28.5Z" fill="#0ACF83" /><path d="M0 47.5C0 52.7467 4.25329 57 9.5 57C14.7467 57 19 52.7467 19 47.5V38H9.5C4.25329 38 0 42.2533 0 47.5Z" fill="#A259FF" /><path d="M19 0H9.5C4.25329 0 0 4.2533 0 9.5C0 14.7467 4.25329 19 9.5 19H19V0Z" fill="#F24E1E" /><path d="M19 19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.2533 33.7467 0 28.5 0H19V19Z" fill="#FF7262" /><path d="M38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5Z" fill="#1ABCFE" /></svg>,
+      home: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>,
+      user: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>,
+      briefcase: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>,
     };
 
     /* ─── NAVBAR ─── */
     const Navbar = () => {
       const [scrolled, setScrolled] = useState(false);
+      const [isOpen, setIsOpen] = useState(false);
+
       useEffect(() => {
         const h = () => setScrolled(window.scrollY > 30);
         window.addEventListener('scroll', h); return () => window.removeEventListener('scroll', h);
       }, []);
+
+      useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = '';
+      }, [isOpen]);
+
       return (
-        <nav className={scrolled ? 'scrolled' : ''}>
-          <div className="nav-pill">
+        <>
+          <nav className={scrolled ? 'scrolled' : ''}>
+            <div className="nav-pill" style={{ zIndex: 100 }}>
 
-            {/* Logo */}
-            <div className="logo">
-              <div className="logo-icon">
-                <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+              {/* Logo */}
+              <div className="logo" style={{ zIndex: 101 }}>
+                <div className="logo-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+                </div>
+                <span className="logo-text">Ahmed<span>.</span></span>
               </div>
-              <span className="logo-text">Ahmed<span>.</span></span>
-            </div>
 
-            {/* Center links */}
-            <div className="nav-links">
-              {['Home', 'About', 'Projects', 'Services', 'Contact'].map(l => (
-                <a key={l} href={`#${l.toLowerCase()}`}>{l}</a>
-              ))}
-            </div>
+              {/* Center links */}
+              <div className="nav-links">
+                {['Home', 'About', 'Projects', 'Services', 'Contact'].map(l => (
+                  <a key={l} href={`#${l.toLowerCase()}`}>{l}</a>
+                ))}
+              </div>
 
-            {/* CTA */}
-            <div className="nav-cta" style={{ gap: '8px' }}>
-              <a href="#contact" className="btn-ghost">Contact Us</a>
-              <a href="https://drive.google.com/file/d/1k3TRKorcdcOmTokrB8KhXggVl-nMSKcr/view?usp=drive_link" target="_blank" className="btn-primary" style={{ textDecoration: 'none' }}>Open CV {Svg.arrow}</a>
-            </div>
+              {/* CTA */}
+              <div className="nav-cta" style={{ gap: '8px' }}>
+                <a href="#contact" className="btn-ghost">Contact Us</a>
+                <a href="https://drive.google.com/file/d/1k3TRKorcdcOmTokrB8KhXggVl-nMSKcr/view?usp=drive_link" target="_blank" className="btn-primary" style={{ textDecoration: 'none' }}>Open CV {Svg.arrow}</a>
+              </div>
 
+              {/* Mobile Toggle */}
+              <button className="nav-toggle" style={{ zIndex: 101 }} onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? Svg.close : Svg.menu}
+              </button>
+
+            </div>
+          </nav>
+
+          {/* Mobile Menu */}
+          <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+            {['Home', 'About', 'Projects', 'Services', 'Contact'].map(l => (
+              <a key={l} href={`#${l.toLowerCase()}`} className="m-link" onClick={() => setIsOpen(false)}>{l}</a>
+            ))}
+            <div className="mobile-menu-cta" style={{ width: '100%', padding: '0 24px' }}>
+              <a href="https://drive.google.com/file/d/1k3TRKorcdcOmTokrB8KhXggVl-nMSKcr/view?usp=drive_link" target="_blank" className="btn-primary" style={{ textDecoration: 'none' }} onClick={() => setIsOpen(false)}>Open CV {Svg.arrow}</a>
+              <a href="#contact" className="btn-ghost" style={{ display: 'inline-flex' }} onClick={() => setIsOpen(false)}>Contact Us</a>
+            </div>
           </div>
-        </nav>
+        </>
       );
     };
 
@@ -2256,9 +2514,13 @@
                 </R>
               ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px' }}>
-              {!showMore && (
-                <button className="btn-primary" onClick={() => setShowMore(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="view-more-wrapper" style={{ display: 'flex', justifyContent: 'center', marginTop: '48px' }}>
+              {showMore ? (
+                <a href="#contact" className="btn-ghost view-more-btn btn-pulse" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none' }}>
+                  Contact for new project
+                </a>
+              ) : (
+                <button className="btn-ghost view-more-btn" onClick={() => setShowMore(true)} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   View more
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" /></svg>
                 </button>
@@ -2271,11 +2533,30 @@
 
     /* ─── SERVICES ─── */
     const Services = () => {
+      const [selectedService, setSelectedService] = useState(null);
+      const [formData, setFormData] = useState({ name: '', email: '', desc: '' });
+      const [showSuccess, setShowSuccess] = useState(false);
+
       const items = [
-        { icon: Svg.monitor, title: 'Web Design', desc: 'Responsive, high-converting interfaces that elevate brands and engage users across every device.', img: 'file2/إضافة عنوان (28).png' },
-        { icon: Svg.layout, title: 'Landing Pages Design', desc: 'Purpose-built landing pages that convert visitors into customers with clear hierarchy and persuasive design.', img: 'file2/إضافة عنوان (28).png' },
-        { icon: Svg.phone, title: 'Mobile Apps Design', desc: 'Native-feel iOS and Android experiences designed around user behaviour, ensuring retention and delight.', img: 'file2/إضافة عنوان (28).png' },
+        { icon: Svg.monitor, title: 'Web Design', desc: 'Responsive, high-converting interfaces that elevate brands and engage users across every device.' },
+        { icon: Svg.layout, title: 'Landing Pages Design', desc: 'Purpose-built landing pages that convert visitors into customers with clear hierarchy and persuasive design.' },
+        { icon: Svg.phone, title: 'Mobile Apps Design', desc: 'Native-feel iOS and Android experiences designed around user behaviour, ensuring retention and delight.' },
       ];
+
+      const handleSend = () => {
+        if (!selectedService) return;
+        const subject = encodeURIComponent(`New ${selectedService.title} Project`);
+        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Description:\n${formData.desc}`);
+        window.location.href = `mailto:ahmedmahmoud22990@gmail.com?subject=${subject}&body=${body}`;
+        
+        setShowSuccess(true);
+        setTimeout(() => {
+          setShowSuccess(false);
+          setSelectedService(null);
+          setFormData({ name: '', email: '', desc: '' });
+        }, 3000);
+      };
+
       return (
         <section id="services">
           <div className="services-inner">
@@ -2292,22 +2573,45 @@
                 <R key={i} d={i * 80}>
                   <div className="srv-card-wrap">
                     <div className="srv-card-inner">
-                      <div className="srv-card-front">
-                        <div className="srv-icon-wrap">{s.icon}</div>
-                        <div className="srv-title">{s.title}</div>
-                        <div className="srv-desc">{s.desc}</div>
-                      </div>
-                      <div className="srv-card-back">
-                        <img src={s.img} alt={s.title} />
-                        <div className="srv-card-back-shadow"></div>
-                        <button>Order Now</button>
-                      </div>
+                      <div className="srv-icon-wrap">{s.icon}</div>
+                      <div className="srv-title">{s.title}</div>
+                      <div className="srv-desc">{s.desc}</div>
+                      <button className="btn-ghost srv-build-btn" onClick={() => setSelectedService(s)}>Build Project</button>
                     </div>
                   </div>
                 </R>
               ))}
             </div>
           </div>
+
+          {selectedService && (
+            <div className="popup-overlay" onClick={() => setSelectedService(null)}>
+              <div className="popup-content" onClick={e => e.stopPropagation()}>
+                {showSuccess ? (
+                  <div style={{ textAlign: 'center', padding: '40px 0', animation: 'fadeIn 0.3s' }}>
+                    <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#22c55e20', color: '#22c55e', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+                      <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+                    </div>
+                    <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px', color: '#0a0a0f' }}>Request Sent!</h3>
+                    <p style={{ color: '#6b7280' }}>Opening your email client...</p>
+                  </div>
+                ) : (
+                  <>
+                    <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '24px', letterSpacing: '-0.02em', color: '#0a0a0f' }}>{selectedService.title}</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <input className="dark-input" style={{ border: '1px solid #e5e7eb' }} type="text" placeholder="Name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                      <input className="dark-input" style={{ border: '1px solid #e5e7eb' }} type="email" placeholder="Email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                      <textarea className="dark-input" style={{ border: '1px solid #e5e7eb', minHeight: '120px', resize: 'vertical' }} placeholder="Project Description" value={formData.desc} onChange={e => setFormData({...formData, desc: e.target.value})}></textarea>
+                      <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+                        <button className="btn-primary" style={{ flex: 1, justifyContent: 'center' }} onClick={handleSend}>Send Request</button>
+                        <button className="btn-ghost" style={{ padding: '0 24px' }} onClick={() => setSelectedService(null)}>Cancel</button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </section>
       );
     };
@@ -2430,13 +2734,43 @@
     /* ─── FOOTER ─── */
     const Footer = () => (
       <footer style={{ background: '#f5f4f0', padding: '40px 24px', borderTop: '1px solid #e5e7eb', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
+        <div className="footer-cta" style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
           <a href="https://drive.google.com/file/d/1k3TRKorcdcOmTokrB8KhXggVl-nMSKcr/view?usp=drive_link" target="_blank" className="btn-primary" style={{ textDecoration: 'none' }}>Open CV {Svg.arrow}</a>
           <a href="#contact" className="btn-ghost" style={{ textDecoration: 'none' }}>Contact Us</a>
         </div>
         <p style={{ fontSize: '14px', color: '#6b7280', margin: '0' }}>© 2026 Ahmed. All rights reserved.</p>
       </footer>
     );
+
+    /* ─── BOTTOM NAV ─── */
+    const BottomNav = () => {
+      const [active, setActive] = useState('home');
+      
+      const navItems = [
+        { id: 'home', label: 'Home', icon: Svg.home },
+        { id: 'about', label: 'About', icon: Svg.user },
+        { id: 'projects', label: 'Work', icon: Svg.briefcase },
+        { id: 'contact', label: 'Contact', icon: Svg.mail }
+      ];
+
+      return (
+        <div className="bottom-nav">
+          <div className="bottom-nav-inner">
+            {navItems.map(item => (
+              <a 
+                key={item.id} 
+                href={`#${item.id}`} 
+                className={`b-nav-item ${active === item.id ? 'active' : ''}`}
+                onClick={() => setActive(item.id)}
+              >
+                <div className="b-nav-icon">{item.icon}</div>
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    };
 
     /* ─── APP ─── */
     const App = () => {
@@ -2450,6 +2784,7 @@
           <Services />
           <Contact />
           <Footer />
+          <BottomNav />
         </div>
       );
     };
